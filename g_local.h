@@ -922,6 +922,7 @@ struct gclient_s
 
 	// powerup timers
 	float		quad_framenum;
+	float		quad_remainingtime;//Reddragoon
 	float		invincible_framenum;
 	float		breather_framenum;
 	float		enviro_framenum;

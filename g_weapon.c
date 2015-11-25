@@ -244,6 +244,7 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 		gi.WritePosition (tr.endpos);
 		gi.multicast (pos, MULTICAST_PVS);
 	}
+	//shots for chaingun, machinegun, shotguns
 }
 
 
@@ -430,7 +431,7 @@ static void Grenade_Explode (edict_t *ent)
 	gi.WritePosition (origin);
 	gi.multicast (ent->s.origin, MULTICAST_PHS);
 
-	G_FreeEdict (ent);
+	G_FreeEdict (ent);//comment this out and grenades stay and enemies run over and die
 }
 
 static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
@@ -549,8 +550,8 @@ fire_rocket
 */
 void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
-	vec3_t		origin;
-	int			n;
+	vec3_t		origin, dir;
+	int			n, i;
 
 	if (other == ent->owner)
 		return;
@@ -595,11 +596,51 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 	gi.WritePosition (origin);
 	gi.multicast (ent->s.origin, MULTICAST_PHS);
 
+	for (i=0; i<20; i++)//Reddragoon
+	{
+		dir[0] = crandom();
+		dir[1] = crandom();
+		dir[2] = crandom();
+
+		fire_rail (ent->owner, ent->s.origin, dir, 150, 200);
+	}//
+
 	G_FreeEdict (ent);
 }
 
-void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage)
+void fire_rocket (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float damage_radius, int radius_damage)
 {
+	edict_t	*grenade;
+	vec3_t	dir;
+	vec3_t	forward, right, up;
+
+	edict_t *ent;
+	gi.centerprintf(ent, "Fires My Projectile.");//prints the center of the screen Reddragoon
+
+	vectoangles (aimdir, dir);
+	AngleVectors (dir, forward, right, up);
+
+	grenade = G_Spawn();
+	VectorCopy (start, grenade->s.origin);
+	VectorScale (aimdir, speed, grenade->velocity);
+	VectorMA (grenade->velocity, -500 + crandom() * 100.0, up, grenade->velocity);
+	VectorMA (grenade->velocity, crandom() * 10.0, right, grenade->velocity);
+	grenade->movetype = MOVETYPE_BOUNCE;
+	grenade->clipmask = MASK_SHOT;
+	grenade->solid = SOLID_BBOX;
+	grenade->s.effects |= EF_GRENADE;
+	VectorClear (grenade->mins);
+	VectorClear (grenade->maxs);
+	grenade->s.modelindex = gi.modelindex ("models/objects/rocket/tris.md2");
+	grenade->owner = self;
+	grenade->nextthink = level.time + 0.8;
+	grenade->think = rocket_touch;
+	grenade->dmg = damage;
+	grenade->dmg_radius = damage_radius;
+	grenade->classname = "rocket";
+
+	gi.linkentity (grenade);
+	/*
 	edict_t	*rocket;
 
 	rocket = G_Spawn();
@@ -627,7 +668,7 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	if (self->client)
 		check_dodge (self, rocket->s.origin, dir, speed);
 
-	gi.linkentity (rocket);
+	gi.linkentity (rocket);*/
 }
 
 

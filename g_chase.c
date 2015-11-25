@@ -151,6 +151,6 @@ void GetChaseTarget(edict_t *ent)
 			return;
 		}
 	}
-	gi.centerprintf(ent, "No other players to chase.");
+	gi.centerprintf(ent, "No other players to chase.");//prints the center of the screen Reddragoon
 }
 

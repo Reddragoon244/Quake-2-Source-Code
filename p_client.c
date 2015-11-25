@@ -1,6 +1,8 @@
 #include "g_local.h"
 #include "m_player.h"
 
+float quadTimer;
+
 void ClientUserinfoChanged (edict_t *ent, char *userinfo);
 
 void SP_misc_teleporter_dest (edict_t *ent);
@@ -391,8 +393,9 @@ void Touch_Item (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf
 void TossClientWeapon (edict_t *self)
 {
 	gitem_t		*item;
-	edict_t		*drop;
+	edict_t		*drop, *ent;
 	qboolean	quad;
+
 	float		spread;
 
 	if (!deathmatch->value)
@@ -405,12 +408,13 @@ void TossClientWeapon (edict_t *self)
 		item = NULL;
 
 	if (!((int)(dmflags->value) & DF_QUAD_DROP))
-		quad = false;
+		quad = true;//Reddragoon Quad drop boolean
 	else
-		quad = (self->client->quad_framenum > (level.framenum + 10));
+		quad = false;
+
 
 	if (item && quad)
-		spread = 22.5;
+		spread = 122.5;
 	else
 		spread = 0.0;
 
@@ -422,16 +426,19 @@ void TossClientWeapon (edict_t *self)
 		drop->spawnflags = DROPPED_PLAYER_ITEM;
 	}
 
-	if (quad)
+	if (quad)//While quad is on the ground from a player dying this continues to run Reddragoon
 	{
 		self->client->v_angle[YAW] += spread;
 		drop = Drop_Item (self, FindItemByClassname ("item_quad"));
 		self->client->v_angle[YAW] -= spread;
 		drop->spawnflags |= DROPPED_PLAYER_ITEM;
 
+		//gi.cprintf(ent, PRINT_HIGH, "%f", quadTimer);
+		gi.cprintf(ent, PRINT_HIGH, "%f", self->client->quad_framenum);
+
 		drop->touch = Touch_Item;
 		drop->nextthink = level.time + (self->client->quad_framenum - level.framenum) * FRAMETIME;
-		drop->think = G_FreeEdict;
+		//drop->think = G_FreeEdict;//despawns the quad item if player dropped it
 	}
 }
 
@@ -482,6 +489,7 @@ player_die
 void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
 {
 	int		n;
+	
 
 	VectorClear (self->avelocity);
 
@@ -521,8 +529,10 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 		}
 	}
 
+
+
 	// remove powerups
-	self->client->quad_framenum = 0;
+	self->client->quad_framenum = self->client->quad_framenum;//Quad Framenum Reddragoon
 	self->client->invincible_framenum = 0;
 	self->client->breather_framenum = 0;
 	self->client->enviro_framenum = 0;
@@ -571,6 +581,8 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 	}
 
 	self->deadflag = DEAD_DEAD;
+
+	gi.cprintf(self, PRINT_HIGH, "%f", quadTimer);
 
 	gi.linkentity (self);
 }
@@ -1590,6 +1602,9 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 		// set up for pmove
 		memset (&pm, 0, sizeof(pm));
+
+		//ent->velocity[2] = 300 jump high Reddragoon
+		
 
 		if (ent->movetype == MOVETYPE_NOCLIP)
 			client->ps.pmove.pm_type = PM_SPECTATOR;

@@ -267,12 +267,13 @@ void Think_Weapon (edict_t *ent)
 	{
 		ent->client->newweapon = NULL;
 		ChangeWeapon (ent);
+		
 	}
 
 	// call active weapon think routine
 	if (ent->client->pers.weapon && ent->client->pers.weapon->weaponthink)
 	{
-		is_quad = (ent->client->quad_framenum > level.framenum);
+		//is_quad = (ent->client->quad_framenum > level.framenum);//Calls the Quad Damage Item Reddragoon 
 		if (ent->client->silencer_shots)
 			is_silenced = MZ_SILENCED;
 		else
@@ -692,10 +693,10 @@ void weapon_grenadelauncher_fire (edict_t *ent)
 	vec3_t	offset;
 	vec3_t	forward, right;
 	vec3_t	start;
-	int		damage = 120;
+	int		damage = 0;
 	float	radius;
 
-	radius = damage+40;
+	radius = damage;
 	if (is_quad)
 		damage *= 4;
 
@@ -703,7 +704,7 @@ void weapon_grenadelauncher_fire (edict_t *ent)
 	AngleVectors (ent->client->v_angle, forward, right, NULL);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 
-	VectorScale (forward, -2, ent->client->kick_origin);
+	VectorScale (forward, 10, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
 	fire_grenade (ent, start, forward, damage, 600, 2.5, radius);
@@ -745,9 +746,13 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	float	damage_radius;
 	int		radius_damage;
 
-	damage = 100 + (int)(random() * 20.0);
-	radius_damage = 120;
-	damage_radius = 120;
+	damage = 0;
+	radius_damage = 0;
+	damage_radius = 0;
+
+	//damage = 100 + (int)(random() * 20.0);//Reddragoon
+	//radius_damage = 120;
+	//damage_radius = 120;
 	if (is_quad)
 	{
 		damage *= 4;
@@ -762,6 +767,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	VectorSet(offset, 8, 8, ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+	
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -782,7 +788,7 @@ void Weapon_RocketLauncher (edict_t *ent)
 	static int	pause_frames[]	= {25, 33, 42, 50, 0};
 	static int	fire_frames[]	= {5, 0};
 
-	Weapon_Generic (ent, 4, 12, 50, 54, pause_frames, fire_frames, Weapon_RocketLauncher_Fire);
+	Weapon_Generic (ent, 4, 8, 50, 54, pause_frames, fire_frames, Weapon_RocketLauncher_Fire);
 }
 
 

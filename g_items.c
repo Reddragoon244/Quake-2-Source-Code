@@ -317,7 +317,7 @@ qboolean Pickup_Pack (edict_t *ent, edict_t *other)
 
 //======================================================================
 
-void Use_Quad (edict_t *ent, gitem_t *item)
+void Use_Quad (edict_t *ent, gitem_t *item)//Reddragoon
 {
 	int		timeout;
 
@@ -331,11 +331,12 @@ void Use_Quad (edict_t *ent, gitem_t *item)
 	}
 	else
 	{
-		timeout = 300;
+		timeout = 600;//increase this for more time you need to win the match Reddragoon 600 = 60secs
+
 	}
 
 	if (ent->client->quad_framenum > level.framenum)
-		ent->client->quad_framenum += timeout;
+			ent->client->quad_framenum += timeout;
 	else
 		ent->client->quad_framenum = level.framenum + timeout;
 
@@ -816,7 +817,7 @@ static void drop_make_touchable (edict_t *ent)
 	ent->touch = Touch_Item;
 	if (deathmatch->value)
 	{
-		ent->nextthink = level.time + 29;
+		ent->nextthink = level.time + 29;//Reddragoon
 		ent->think = G_FreeEdict;
 	}
 }
@@ -1643,7 +1644,7 @@ always owned, never in the world
 	//
 	// POWERUP ITEMS
 	//
-/*QUAKED item_quad (.3 .3 1) (-16 -16 -16) (16 16 16)
+/*QUAKED item_quad (.3 .3 1) (-16 -16 -16) (16 16 16) //Quad storage Reddragoon
 */
 	{
 		"item_quad", 
@@ -1657,7 +1658,7 @@ always owned, never in the world
 /* icon */		"p_quad",
 /* pickup */	"Quad Damage",
 /* width */		2,
-		60,
+		900,//the number to respawn it Reddragoon
 		NULL,
 		IT_POWERUP,
 		0,

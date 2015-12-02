@@ -1,0 +1,80 @@
+﻿Build started 12/1/2015 8:38:38 PM.
+     1>Project "C:\Quake2\src\game.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating ".\debug\game.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D BUILDING_REF_GL /D _VC80_UPGRADE=0x0600 /D _WINDLL /Gm /EHsc /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\debug\\" /Fd".\debug\vc100.pdb" /FR".\debug\\" /Gd /TC /analyze- /errorReport:prompt p_client.c
+         p_client.c
+     1>c:\quake2\src\p_client.c(394): warning C4101: 'ent' : unreferenced local variable
+     1>c:\quake2\src\p_client.c(1369): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\quake2\src\p_client.c(1374): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(188) : see declaration of 'strncpy'
+     1>c:\quake2\src\p_client.c(1414): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(188) : see declaration of 'strncpy'
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(990,5): warning MSB8012: TargetPath(C:\Quake2\src\.\..\debug\game.dll) does not match the Linker's OutputFile property value (C:\Quake2\baseq2\gamex86.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(992,5): warning MSB8012: TargetName(game) does not match the Linker's OutputFile property value (gamex86). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\baseq2\gamex86.dll" /INCREMENTAL:NO /NOLOGO winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /DEF:".\game.def" /MANIFEST /ManifestFile:".\debug\game.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Quake2\debug\game.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /BASE:"0x20000000" /DYNAMICBASE /NXCOMPAT /IMPLIB:".\..\debug\gamex86.lib" /MACHINE:X86 /DLL .\debug\g_ai.obj
+         .\debug\g_chase.obj
+         .\debug\g_cmds.obj
+         .\debug\g_combat.obj
+         .\debug\g_func.obj
+         .\debug\g_items.obj
+         .\debug\g_main.obj
+         .\debug\g_misc.obj
+         .\debug\g_monster.obj
+         .\debug\g_phys.obj
+         .\debug\g_save.obj
+         .\debug\g_spawn.obj
+         .\debug\g_svcmds.obj
+         .\debug\g_target.obj
+         .\debug\g_trigger.obj
+         .\debug\g_turret.obj
+         .\debug\g_utils.obj
+         .\debug\g_weapon.obj
+         .\debug\m_actor.obj
+         .\debug\m_berserk.obj
+         .\debug\m_boss2.obj
+         .\debug\m_boss3.obj
+         .\debug\m_boss31.obj
+         .\debug\m_boss32.obj
+         .\debug\m_brain.obj
+         .\debug\m_chick.obj
+         .\debug\m_flash.obj
+         .\debug\m_flipper.obj
+         .\debug\m_float.obj
+         .\debug\m_flyer.obj
+         .\debug\m_gladiator.obj
+         .\debug\m_gunner.obj
+         .\debug\m_hover.obj
+         .\debug\m_infantry.obj
+         .\debug\m_insane.obj
+         .\debug\m_medic.obj
+         .\debug\m_move.obj
+         .\debug\m_mutant.obj
+         .\debug\m_parasite.obj
+         .\debug\m_soldier.obj
+         .\debug\m_supertank.obj
+         .\debug\m_tank.obj
+         .\debug\p_client.obj
+         .\debug\p_hud.obj
+         .\debug\p_trail.obj
+         .\debug\p_view.obj
+         .\debug\p_weapon.obj
+         .\debug\q_shared.obj
+     1>g_ai.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+            Creating library .\..\debug\gamex86.lib and object .\..\debug\gamex86.exp
+         game.vcxproj -> C:\Quake2\src\.\..\debug\game.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"..\baseq2\gamex86.dll;#2" /manifest .\debug\game.dll.intermediate.manifest
+       BscMake:
+         All outputs are up-to-date.
+       FinalizeBuildStatus:
+         Deleting file ".\debug\game.unsuccessfulbuild".
+         Touching ".\debug\game.lastbuildstate".
+     1>Done Building Project "C:\Quake2\src\game.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.61

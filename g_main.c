@@ -324,7 +324,7 @@ void CheckDMRules (void)
 			}
 		}
 	}
-
+	/*
 	if (fraglimit->value)//This is where frags determine the end of a deathmatch Reddragoon
 	{
 		for (i=0 ; i<maxclients->value ; i++)
@@ -340,7 +340,7 @@ void CheckDMRules (void)
 				return;
 			}
 		}
-	}
+	}*/
 }
 
 

@@ -767,6 +767,7 @@ edict_t *SelectRandomDeathmatchSpawnPoint (void)
 			selection++;
 	} while(selection--);
 
+
 	return spot;
 }
 
@@ -849,7 +850,6 @@ edict_t *SelectCoopSpawnPoint (edict_t *ent)
 				return spot;		// this is it
 		}
 	}
-
 
 	return spot;
 }
@@ -1573,6 +1573,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	edict_t	*other;
 	int		i, j;
 	pmove_t	pm;
+
 
 	level.current_entity = ent;
 	client = ent->client;

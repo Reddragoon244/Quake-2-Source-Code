@@ -1577,16 +1577,19 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 			if (!g_edicts[i+1].inuse)
 				continue;
 
-			if((client->quad_framenum - level.framenum)/10 >= 44)
-				quadtrue = 1;
+			if(client->quad_framenum >= 1.0)
+				ent->client->quadtrue = 1;
+			else
+				ent->client->quadtrue = 0;
+
+			if(ent->client->quadtrue == 1)
+				{
+					gi.centerprintf (ent, "%s %s \n", client->pers.netname, "has the quad symbol");//Reddragoon
+					ent->client->quadtrue = 0;
+				}
 			
 		}
 
-	if(quadtrue == 1)
-	{
-		gi.centerprintf (ent, "%s %s \n", ent->client->pers.netname, "has the quad symbol");//Reddragoon
-		quadtrue = 0;
-	}
 
 	level.current_entity = ent;
 	client = ent->client;

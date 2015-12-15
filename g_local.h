@@ -950,6 +950,7 @@ struct gclient_s
 	edict_t		*chase_target;		// player we are chasing
 	qboolean	update_chase;		// need to update chase info?
 	qboolean    quadwinner;
+	int			quadtrue;
 	
 };
 
@@ -1104,5 +1105,4 @@ struct edict_s
 };
 
 float           quadtime;//might define multiple times Reddragoon put
-int				quadtrue;//check for anyone who has quad
 int				quadself;//check for self quad

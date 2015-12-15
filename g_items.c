@@ -341,6 +341,8 @@ void Use_Quad (edict_t *ent, gitem_t *item)//Reddragoon
 	else
 		ent->client->quad_framenum = level.framenum + timeout;
 
+	quadself = 1;
+
 	gi.sound(ent, CHAN_ITEM, gi.soundindex("items/damage.wav"), 1, ATTN_NORM, 0);
 }
 

@@ -917,10 +917,10 @@ void Weapon_HyperBlaster_Fire (edict_t *ent)
 			for(i=0; i<40; i++)//Reddragoon wide spread fire
 			{
 			
-			offset[0] = -50 + (i*4);
-			offset[1] = -50 + (i*4);
+			offset[0] = -60 + (i*5);
+			offset[1] = -60 + (i*5);
 			offset[2] = 8;
-			Blaster_Fire (ent, offset, 20, true, effect);
+			Blaster_Fire (ent, offset, 2, true, effect);
 
 			}
 			ent->client->pers.inventory[ent->client->ammo_index] -= ent->client->pers.weapon->quantity * 3;
@@ -1016,7 +1016,7 @@ void Machinegun_Fire (edict_t *ent)
 	AngleVectors (angles, forward, right, NULL);
 	VectorSet(offset, 0, 8, ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
-	fire_bullet (ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
+	fire_bullet1 (ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
 
 	gi.WriteByte (svc_muzzleflash);
 	gi.WriteShort (ent-g_edicts);
@@ -1221,13 +1221,15 @@ void weapon_shotgun_fire (edict_t *ent)
 	{
 		//gi.centerprintf(ent, "%f", ent->client->quad_framenum);
 
-		if(quadtime<45.0)
-		fire_shotgun_rail (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+		if((ent->client->quad_framenum - level.framenum)/10 <= 0.0)
+			fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 		
 		else if(ent->client->quad_framenum<20.0)
-			fire_shotgun_rockets (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+		fire_shotgun_rail (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+		
 		else
-			fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+			fire_shotgun_rockets (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+
 	}
 	else
 		fire_shotgun_rail (ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);

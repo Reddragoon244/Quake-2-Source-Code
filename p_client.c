@@ -407,13 +407,9 @@ void TossClientWeapon (edict_t *self)
 
 	if (!((int)(dmflags->value) & DF_QUAD_DROP))
 		quad = false;//Reddragoon Quad drop boolean
-	//else
-		//quad = (self->client->quad_framenum > (level.framenum + 10));
 
 	if(self->client->quad_framenum > (level.framenum + 10))//drops the  quad symbol Reddragoon
 		quad = true;
-
-	gi.bprintf(PRINT_HIGH, "%f   >  %f", self->client->quad_framenum, level.framenum);
 
 	if (item && quad)
 		spread = 122.5;
@@ -528,6 +524,7 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 		}
 	}
 
+	quadself = 0;//self no longer has quad
 	self->client->quad_framenum = 0;//Quad Framenum Reddragoon
 	self->client->invincible_framenum = 0;
 	self->client->breather_framenum = 0;
